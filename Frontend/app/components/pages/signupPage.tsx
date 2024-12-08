@@ -11,7 +11,7 @@ import { SignupAPI } from '@/services/userApi';
 type Inputs = {
   username: string;
   email: string;
-  phone: string; // Corrected name to match usage
+  phone: string; 
   password: string;
   confirmPassword: string;
 };

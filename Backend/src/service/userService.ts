@@ -52,4 +52,41 @@ export class UserService {
             throw new Error(error.message || "Failed to register user.");
         }
     }
+
+
+
+    async savechatService(
+        user: string,
+        text: string,
+        createdAt:string
+        // pollOptions?: string[],
+        // pollVotes?: number[],
+        // selectedPollOption?: string
+    ) {
+        try {
+            console.log('service');
+
+            const chatService = await this.userRepository.savechatDB(user, text, createdAt,);
+            return chatService;
+        } catch (error:any) {
+            throw new Error(error);
+        }
+    }
+    
+
+
+
+   // Service
+async getMessageService() {
+    try {
+        const messages = await this.userRepository.getMessagesByChatId();
+        return messages;
+    } catch (error) {
+        throw new Error('Failed to process messages in service');
+    }
+}
+
+
+
+
 }

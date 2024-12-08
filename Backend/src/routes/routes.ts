@@ -11,5 +11,8 @@ const userController = new UserController(userService);
 
 router.post("/login", userController.login.bind(userController));
 router.post("/signup", userController.register.bind(userController));
+router.post('/savechat', userController.savechat.bind(userController));
+router.get('/message', userController.getMessage.bind(userController));
+
 
 export default router;

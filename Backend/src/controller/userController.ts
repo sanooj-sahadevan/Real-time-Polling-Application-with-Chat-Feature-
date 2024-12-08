@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { HttpStatus } from '../utils/httpStatus.ts'; // Assuming httpStatus is a utility for HTTP status codes
-import { User } from "../interface/user.js";
 
 export class UserController {
     private userService: any;
@@ -50,8 +49,43 @@ export class UserController {
     }
     
 
-     
-    
+
+    async savechat(req: Request, res: Response, next: NextFunction) {
+        try {
+          console.log('controller');
+          console.log('Request Body:', req.body); // Log the incoming payload
+
+          const { user,text,  createdAt} = req.body;
+      
+          console.log('Received data:', { user,text,  createdAt });
+      
+          const result = await this.userService.savechatService(
+            user,text,  createdAt
+          );
+      
+          res.status(HttpStatus.OK).json(result);
+        } catch (error: any) {
+          next(error);
+        }
+      }
+
+
+
+      
+      async getMessage(req: Request, res: Response, next: NextFunction): Promise<any> {
+        try {
+          const updatedMessages = await this.userService.getMessageService(); 
+          if (!updatedMessages.length) {
+            return res
+              .status(HttpStatus.NOT_FOUND)
+              .json({ message: "No messages found for this chat" });
+          }
+          res.status(HttpStatus.OK).json(updatedMessages);
+        } catch (error: any) {
+          next(error); // Pass the error to the next middleware (error handler)
+        }
+      }
+
 
 
 
